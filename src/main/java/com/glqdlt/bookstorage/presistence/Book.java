@@ -10,6 +10,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -25,9 +26,8 @@ public class Book {
     private String title;
 
     @NonNull
-    @OneToMany()
-    @JoinColumn(name = "author_no")
-    private Collection<Author> author;
+    @ManyToMany()
+    private List<Author> authors;
 
     private Date regDate = new Date();
 

@@ -9,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.sound.sampled.Line;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Slf4j
@@ -32,10 +29,9 @@ public class BookRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
 
-    @Transactional
+
     @Before
     public void setUp() {
-
         List<Author> authors = Arrays.asList(
 
                 new Author("jhun"),
@@ -43,25 +39,22 @@ public class BookRepositoryTest {
         );
 
         List<Author> savedAuthros = authorRepository.save(authors);
+        Author author_jhun = authorRepository.findByName("jhun");
+        Book book_borwow = new Book();
+        book_borwow.setAuthors(Arrays.asList(author_jhun));
+        book_borwow.setTitle("bowWow");
 
+        Book aaa = new Book();
+        aaa.setAuthors(savedAuthros);
+        aaa.setTitle("aaa");
 
-        Author jhun = savedAuthros.get(0);
-
-        List<Book> books = Arrays.asList(
-
-                new Book("jhun의 모험", Stream.of(jhun).collect(Collectors.toSet())),
-                new Book("bowWow", Stream.of(jhun).collect(Collectors.toSet())),
-                new Book("ooo", Stream.of(jhun).collect(Collectors.toSet())),
-                new Book("www", savedAuthros)
-        );
-
-        bookRepository.save(books);
+        bookRepository.save(Arrays.asList(book_borwow,aaa));
 
     }
 
     @Test
     public void findAuthors() {
-        Assert.assertEquals(3, authorRepository.findAll().size());
+        Assert.assertEquals(2, authorRepository.findAll().size());
     }
 
     @Test
@@ -76,23 +69,16 @@ public class BookRepositoryTest {
 
     @Test
     public void findBooksByAuthor() {
+        Assert.assertEquals(2, (int) bookRepository.countAllByAuthors_Name("jhun"));
+    }
 
-        Author aa = authorRepository.findByName("jhun");
-        List<Book> ss = Arrays.asList(bookRepository.findByAuthor(aa));
-        List<Book> ee = bookRepository.findAll();
+    @Test
+    public void findJpql() {
+        Assert.assertEquals(2, bookRepository.findAllByAuthors_NameJpql("jhun").size());
+    }
 
-
-
-//         아래 3개는 같은 효과
-        ss.forEach(x -> log.info(x.toString()));
-        bookRepository.findAllByAuthor_Name("jhun").forEach(x -> log.info(x.toString()));
-        log.info("===");
-        bookRepository.findBooksByAuthor_Name("jhun").forEach(x -> log.info(x.toString()));
-
-
-//        FIXME 문제는 jhun 이라는 name을 가지는 author는 여러 개 있는 데, findAll 로 때려도 맨 마지막 하나의 녀석만 나오는 게 문제이다.
-        Assert.assertEquals(4, (int) bookRepository.countAllByAuthor_Name("jhun"));
-
-
+    @Test
+    public void findBooksByAuthors(){
+        Assert.assertEquals(2,bookRepository.findBooksByAuthors_Name("jhun").size());
     }
 }
