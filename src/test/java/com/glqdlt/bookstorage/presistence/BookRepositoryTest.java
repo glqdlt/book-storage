@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -39,15 +38,15 @@ public class BookRepositoryTest {
 
         List<Author> savedAuthros = authorRepository.save(authors);
         Author author_jhun = authorRepository.findByName("jhun");
-        Book book_borwow = new Book();
-        book_borwow.setAuthors(Arrays.asList(author_jhun));
-        book_borwow.setTitle("bowWow");
+        Book book_bowwow = new Book();
+        book_bowwow.setAuthors(Arrays.asList(author_jhun));
+        book_bowwow.setTitle("bowWow");
 
         Book aaa = new Book();
         aaa.setAuthors(savedAuthros);
         aaa.setTitle("aaa");
 
-        bookRepository.save(Arrays.asList(book_borwow,aaa));
+        bookRepository.save(Arrays.asList(book_bowwow,aaa));
 
     }
 
