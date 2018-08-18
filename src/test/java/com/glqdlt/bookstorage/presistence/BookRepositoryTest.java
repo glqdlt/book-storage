@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -18,8 +19,8 @@ import java.util.List;
 @DataJpaTest
 public class BookRepositoryTest {
 
-//    @Autowired
-//    private TestEntityManager testEntityManager;
+    @Autowired
+    private TestEntityManager testEntityManager;
 
     @Autowired
     private BookRepository bookRepository;
@@ -82,6 +83,7 @@ public class BookRepositoryTest {
 
     @Test
     public void findByNo() {
-        Assert.assertNotNull(bookRepository.findByNo(1));
+//        FIXME 여기서 junitTest에는 통과하지만 Build 시에는 NullPointer 에러가 나온다. 뭐지?
+        Assert.assertEquals("bowWow",bookRepository.findByNo(1).getTitle());
     }
 }
