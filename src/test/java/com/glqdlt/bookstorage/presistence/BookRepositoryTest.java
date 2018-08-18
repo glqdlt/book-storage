@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -20,8 +19,8 @@ import java.util.stream.Collectors;
 @DataJpaTest
 public class BookRepositoryTest {
 
-    @Autowired
-    private TestEntityManager testEntityManager;
+//    @Autowired
+//    private TestEntityManager testEntityManager;
 
     @Autowired
     private BookRepository bookRepository;
