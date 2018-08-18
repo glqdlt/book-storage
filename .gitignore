@@ -29,3 +29,5 @@ mvnw.cmd
 
 
 .mvn
+
+application-product.properties
