@@ -31,3 +31,5 @@ mvnw.cmd
 .mvn
 
 application-product.properties
+
+mail-config-test.properties
