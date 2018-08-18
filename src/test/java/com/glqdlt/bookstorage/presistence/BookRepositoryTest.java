@@ -79,4 +79,9 @@ public class BookRepositoryTest {
     public void findBooksByAuthors(){
         Assert.assertEquals(2,bookRepository.findBooksByAuthors_Name("jhun").size());
     }
+
+    @Test
+    public void findByNo() {
+        Assert.assertNotNull(bookRepository.findByNo(1));
+    }
 }
