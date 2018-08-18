@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -23,6 +22,7 @@ public class Book {
 
     @NonNull
     @OneToMany(targetEntity = Author.class)
+    @JoinColumn
     private Set<Author> author;
 
     private Date regDate = new Date();

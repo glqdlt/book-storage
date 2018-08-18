@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -16,6 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 public class Author {
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer no;

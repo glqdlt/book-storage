@@ -11,7 +11,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +35,7 @@ public class BookRepositoryTest {
     private AuthorRepository authorRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
 
         List<Author> authors = Arrays.asList(
 
@@ -39,12 +43,29 @@ public class BookRepositoryTest {
                 new Author("glqdlt")
         );
 
-        authorRepository.save(authors);
+        List<Author> savedAuthros = authorRepository.save(authors);
+
+
+        Author jhun = savedAuthros.get(0);
+
+        List<Book> books = Arrays.asList(
+
+                new Book("jhun의 모험", Stream.of(jhun).collect(Collectors.toSet())),
+                new Book("bowWow", Stream.of(jhun).collect(Collectors.toSet()))
+        );
+
+        bookRepository.save(books);
+
 
     }
 
     @Test
     public void findAuthors() {
-        Assert.assertEquals(2,authorRepository.findAll().size());
+        Assert.assertEquals(2, authorRepository.findAll().size());
+    }
+
+    @Test
+    public void findBooks() {
+        bookRepository.findAll().forEach(x -> log.info(x.toString()));
     }
 }
