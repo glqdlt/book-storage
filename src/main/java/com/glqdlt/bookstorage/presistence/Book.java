@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -27,7 +25,7 @@ public class Book {
 
     @NonNull
     @ManyToMany()
-    private List<Author> authors;
+    private Collection<Author> authors;
 
     private Date regDate = new Date();
 
