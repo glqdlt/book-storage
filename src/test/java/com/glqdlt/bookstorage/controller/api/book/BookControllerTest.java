@@ -6,6 +6,7 @@ import com.glqdlt.bookstorage.presistence.Author;
 import com.glqdlt.bookstorage.presistence.AuthorRepository;
 import com.glqdlt.bookstorage.presistence.Book;
 import com.glqdlt.bookstorage.presistence.BookRepository;
+import com.glqdlt.bookstorage.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,10 +35,13 @@ public class BookControllerTest {
     MockMvc mockMvc;
 
     @MockBean
+    private AuthorRepository authorRepository;
+
+    @MockBean
     private BookRepository bookRepository;
 
     @MockBean
-    private AuthorRepository authorRepository;
+    private BookService bookService;
     private Book book;
 
     @Before
@@ -52,7 +56,7 @@ public class BookControllerTest {
         book.setNo(1);
         book.setAuthors(Collections.singletonList(author));
 
-        BDDMockito.given(bookRepository.findByNo(1)).willReturn(book);
+        BDDMockito.given(bookService.findByBookNo(1)).willReturn(book);
     }
 
     @Test
