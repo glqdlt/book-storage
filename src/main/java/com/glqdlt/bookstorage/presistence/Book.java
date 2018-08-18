@@ -4,10 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -15,15 +17,17 @@ import java.util.Set;
 @Data
 public class Book {
 
-    @NonNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    private Integer no;
+
+    @NonNull
     private String title;
 
     @NonNull
-    @OneToMany(targetEntity = Author.class)
-    @JoinColumn
-    private Set<Author> author;
+    @OneToMany()
+    @JoinColumn(name = "author_no")
+    private Collection<Author> author;
 
     private Date regDate = new Date();
 

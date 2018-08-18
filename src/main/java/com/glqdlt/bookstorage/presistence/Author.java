@@ -17,6 +17,8 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer no;
+
+    @Column(unique = true)
     @NonNull
     private String name;
     private Date regDate = new Date();
